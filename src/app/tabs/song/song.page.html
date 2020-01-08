@@ -1,0 +1,82 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title></ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content  >
+
+<ion-grid>
+  <ion-slides #mySlider>
+    <ion-slide fullscreen >      
+      <ion-list style="width: 100%;" >
+        <ion-searchbar (ionChange)="onSearchTerm($event)" 	debounce="100"></ion-searchbar>
+        <div style="width: 100%;" *ngFor="let sing of sings, index as i">
+          <ion-list-header>
+            <ion-label style="font-size: larger;">{{sing.header}}</ion-label>
+          </ion-list-header>
+          <ion-item *ngFor="let sing of sing.listSing , index as j" style="margin-left: 2px; height: 50px !important;"   (click)="onHidden(i, j)"  >
+          <ion-img style="width: 50px;height: auto;"  [src]='sing.image' [class.hidden]="!sing.isSelected"></ion-img >
+          <ion-label style="margin-top: 0px;margin-left: 5px;" >
+            <ion-text >
+              <h3>{{sing.Name}}</h3>
+            </ion-text>
+            <p>{{sing.Singer}}</p>
+          </ion-label>
+        </ion-item>
+        </div> 
+      </ion-list>
+    </ion-slide>
+
+    <ion-slide>
+      <ion-footer *ngIf="activeAudio" >
+        <div style="width: 100%; height: auto; margin-top: 10px;">
+          <ion-img style="width: 100%; height: auto;" [src]="activeAudio.image"></ion-img>
+        </div>
+        <ion-toolbar color="dark"  style="margin-bottom: 0px;margin-top: 0px;" >
+          <ion-row>
+            <ion-col size="12" class="ion-text-center" >
+                {{activeAudio.Name }}
+            </ion-col>
+            <ion-col size="12" class="ion-text-center" >
+              <small>{{activeAudio.Singer}} </small>
+            </ion-col>
+            <ion-col size="12" >
+              <ion-range #range [(ngModel)]="progress" max="100" color="success" (touchend)="seek()" (mouseup)="seek()"></ion-range>
+            </ion-col>
+            <ion-col size="12" class="ion-text-center" >
+              <ion-button fill="clear" (click)="prev()" color="light" >
+                <ion-icon  slot="icon-only" name="skip-backward"></ion-icon>
+              </ion-button>
+              <ion-button fill="clear" (click)="togglePlayer(false)"  *ngIf="!isPlaying" color="light" >
+                <ion-icon  slot="icon-only" name="play"></ion-icon>
+              </ion-button>
+              <ion-button fill="clear" (click)="togglePlayer(true)"  *ngIf="isPlaying" color="light" >
+                <ion-icon  slot="icon-only" name="pause"></ion-icon>
+              </ion-button>
+              <ion-button fill="clear" (click)="next()" color="light" >
+                <ion-icon  slot="icon-only" name="skip-forward"></ion-icon>
+              </ion-button> 
+            </ion-col>
+          </ion-row>
+        </ion-toolbar>
+      </ion-footer>
+    </ion-slide>
+  <ion-slide *ngIf="activeAudio">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" class="ion-text-center"  >
+          <h5>{{activeAudio.Name}} </h5>
+          <p style="margin-top: 0px;">({{activeAudio.Singer}})</p>
+        </ion-col>
+      </ion-row>
+      <ion-row >
+        <ion-col style="margin: 0px auto;" size="10" class="ion-text-center" >
+          {{activeAudio.content}} 
+        </ion-col>
+      </ion-row>
+    </ion-grid>   
+    </ion-slide>
+    </ion-slides> 
+  </ion-grid>
+</ion-content>

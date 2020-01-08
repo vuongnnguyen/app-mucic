@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-searchbar (ionChange)="onSearch($event)"	debounce="100"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list style="width: 100%;">
+    <div style="width: 100%;" *ngFor="let sing of sings, index as i"> 
+      <ion-list-header>
+        <ion-label style="font-size: larger;">{{sing.header}}</ion-label>
+      </ion-list-header>
+      <ion-item *ngFor="let sing of sing.listSing , index as j" class="custom-item" >
+      <ion-img style="width: 50px;height: auto;"  [src]='sing.image'></ion-img >
+      <ion-label style="margin-top: 0px;margin-left: 5px;" >
+        <ion-text >
+          <h3>{{sing.Singer}}</h3>
+        </ion-text>
+      </ion-label>
+    </ion-item>
+    </div>
+  </ion-list>
+
+</ion-content>
